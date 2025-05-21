@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  hrhub.api:
+    image: ${DOCKER_REGISTRY-}hrhubapi
+    build:
+      context: .
+      dockerfile: HRHub.Api\Dockerfile
+
+  hrhub-db:
+    image: postgres:latest
+    container_name: hrhub.db
+    environment:
+      - POSTGRES_DB=hrhub
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    volumes:
+      - ./.containers/database:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+   
+
